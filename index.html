@@ -1,27 +1,144 @@
-<html>
 <head>
-  <style>
-    .center {
-      height: 200px;
-      position: relative;
-      border: 3px solid green;
-    }
-
-    .center p {
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-    }
-  </style>
-</head>
-
-<body>
-  <div>
-    <center>We are tired.</center>
-  </div>
-
-</body>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>The Tired Company.</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #f2f2f2;
+        color: #999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        text-align: center;
+        overflow: hidden;
+        /*Preventscrolling*/
+      }
+      h1 {
+        font-size: 2.0rem;
+        font-weight: 100;
+        transition: color 0.3s; /* Smooth color transition */
+      }
+      h1:hover {
+        color: #c0392b; /* A vibrant red */
+        cursor: pointer; /* Change cursor to a pointer */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>We are tired.</h1>
+    <script>
+      const cannedResponses = [
+         "Thank you for your interest in [Company Name].",
+        "We appreciate you taking the time to apply for the [Job Title] position.",
+        "We received a high volume of applications for this role.",
+        "After careful consideration, we have decided to move forward with other candidates.",
+        "While your qualifications are impressive, they do not align with the specific requirements of this role.",
+        "We wish you the best of luck in your job search.",
+        "We will keep your resume on file for future consideration.",
+        "Thank you for considering [Company Name] for your career aspirations.",
+        "We value your interest in joining our team.",
+        "We encourage you to apply for other positions that match your skills and experience.",
+        "Due to the large number of applications, we are unable to provide individual feedback.",
+        "We regret to inform you that your application was not selected for further consideration.",
+        "Thank you for your understanding.",
+        "We appreciate you sharing your professional background with us.",
+        "We are always looking for talented individuals to join our company.",
+        "We value diversity and inclusion in the workplace.",
+        "We are committed to creating a positive and supportive work environment.",
+        "We offer competitive compensation and benefits packages.",
+        "We provide opportunities for professional growth and development.",
+        "We encourage innovation and creativity in our employees.",
+        "We strive to exceed expectations and deliver exceptional results.",
+        "We are proud to be a leader in our industry.",
+        "We are dedicated to making a positive impact in our community.",
+        "We appreciate your commitment to excellence.",
+        "We value integrity and ethical behavior.",
+        "We are passionate about innovation and technology.",
+        "We believe in teamwork and collaboration.",
+        "We are focused on delivering exceptional customer service.",
+        "We are committed to providing a safe and healthy work environment.",
+        "We offer equal opportunities to all employees and applicants.",
+        "We are a drug-free workplace.",
+        "We conduct background checks on all new hires.",
+        "We require all employees to sign a confidentiality agreement.",
+        "We comply with all applicable laws and regulations.",
+        "We are an equal opportunity employer.",
+        "Thank you for your interest in our company culture.",
+        "We appreciate your enthusiasm and dedication.",
+        "We value your creativity and innovation.",
+        "We are committed to fostering a positive and inclusive work environment.",
+        "We believe in empowering our employees to reach their full potential.",
+        "We are always looking for talented individuals to contribute to our success.",
+        "We encourage you to stay connected with us on social media.",
+        "We invite you to explore other career opportunities on our website.",
+        "Thank you for taking the time to learn more about our company.",
+        "We appreciate your interest in our brand.",
+        "We value your feedback and suggestions.",
+        "We are committed to continuous improvement.",
+        "We strive to exceed customer expectations.",
+        "We are passionate about innovation and creating cutting-edge products and services.",
+        "We believe in the power of teamwork and collaboration.",
+        "We are dedicated to delivering exceptional results.",
+        "We appreciate your dedication and commitment to our shared goals.",
+        "We remain committed to building a sustainable and ethical business.",
+        "We value diversity and inclusivity in our workplace.",
+        "We offer opportunities for professional growth and advancement.",
+        "We are a dynamic and fast-growing company.",
+        "We are always looking for talented individuals to join our team.",
+        "This is an automated message.",
+        "Please do not reply to this email.",
+        "We are unable to provide personalized feedback at this time.",
+        "Your application will be kept on file for future opportunities.",
+        "We wish you success in your future endeavors.",
+        "We appreciate your understanding.",
+        "Thank you again for your interest in [Company Name].",
+        "Best regards.",
+        "Sincerely.",
+        "Respectfully.",
+        "Kind regards.",
+        "Warm regards.",
+        "All the best.",
+        "Good luck.",
+        "We hope to hear from you again in the future.",
+        "Please visit our website for more information.",
+        "Your application has been received.",
+        "We appreciate your interest.",
+        "We are reviewing your application.",
+        "This role requires [Skill] and [Skill].",
+        "We are looking for a candidate with [Experience].",
+        "Thank you for applying.",
+        "We have reviewed your application.",
+        "Your qualifications do not match our needs.",
+        "We encourage you to apply for other roles.",
+        "Thanks for your submission.",
+        "We will keep your profile on file.",
+        "You'll hear from us if there's a match.",
+        "We value your application.",
+        "We hope you will apply again.",
+        "Please do not call.",
+        "This role is no longer available.",
+        "We will contact you if we need more info.",
+        "We appreciate your time.",
+        "We're always seeking top talent.",
+        "We're committed to an inclusive workplace."
+      ];
+      const h1Element = document.querySelector('h1');
+      let usedResponses = []; // Keep track of used responses
+      h1Element.addEventListener('mouseover', () => {
+        if (usedResponses.length === cannedResponses.length) {
+          usedResponses = []; // Reset if all responses have been shown
+        }
+        let availableResponses = cannedResponses.filter(response => !usedResponses.includes(response));
+        const randomIndex = Math.floor(Math.random() * availableResponses.length);
+        const selectedResponse = availableResponses[randomIndex];
+        h1Element.textContent = selectedResponse; // Change the text
+        usedResponses.push(selectedResponse); // Mark as used
+      });
+      h1Element.addEventListener('mouseout', () => {
+        h1Element.textContent = "We are tired."; // Restore original text
+      });
+    </script>
+  </body>
