@@ -1,37 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Tired Company.</title>
     <style>
-      body {
-        font-family: sans-serif;
-        background-color: #f2f2f2;
-        color: #999999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        text-align: center;
-        overflow: hidden;
-        /*Preventscrolling*/
-      }
-      h1 {
-        font-size: 2.0rem;
-        font-weight: 100;
-        transition: color 0.3s; /* Smooth color transition */
-      }
-      h1:hover {
-        color: #c0392b; /* A vibrant red */
-        cursor: pointer; /* Change cursor to a pointer */
-      }
+        body {
+            font-family: sans-serif;
+            background-color: #f2f2f2;
+            color: #999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.0rem;
+            font-weight: 100;
+            transition: color 0.3s, opacity 0.3s;
+            opacity: 1;
+            color: #999999;
+        }
+        h1.response {
+            color: #c0392b;
+        }
+        .fade-out {
+            opacity: 0;
+        }
+        .fade-in {
+            opacity: 1;
+        }
     </style>
-  </head>
-  <body>
-    <h1>We are tired.</h1>
-    <script>
-      const cannedResponses = [
-         "Thank you for your interest in [Company Name].",
+</head>
+<body>
+<h1>We are tired.</h1>
+<script>
+    const cannedResponses = [
+        "Thank you for your interest in [Company Name].",
         "We appreciate you taking the time to apply for the [Job Title] position.",
         "We received a high volume of applications for this role.",
         "After careful consideration, we have decided to move forward with other candidates.",
@@ -124,21 +132,53 @@
         "We appreciate your time.",
         "We're always seeking top talent.",
         "We're committed to an inclusive workplace."
-      ];
-      const h1Element = document.querySelector('h1');
-      let usedResponses = []; // Keep track of used responses
-      h1Element.addEventListener('mouseover', () => {
-        if (usedResponses.length === cannedResponses.length) {
-          usedResponses = []; // Reset if all responses have been shown
+    ];
+    const h1Element = document.querySelector('h1');
+    let usedResponses = [];
+    const originalText = "We are tired.";
+    const intervalTime = 3000;
+    let showingOriginal = true;
+    function changeResponse() {
+        if (showingOriginal) {
+            if (usedResponses.length === cannedResponses.length) {
+                usedResponses = [];
+            }
+            let availableResponses = cannedResponses.filter(response => !usedResponses.includes(response));
+            if (availableResponses.length === 0) {
+                h1Element.textContent = "No more responses available!";
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * availableResponses.length);
+            const selectedResponse = availableResponses[randomIndex];
+            h1Element.classList.add('fade-out');
+            h1Element.classList.remove('response');
+            setTimeout(() => {
+                h1Element.textContent = selectedResponse;
+                h1Element.classList.add('response');
+                h1Element.classList.remove('fade-out');
+                h1Element.classList.add('fade-in');
+                usedResponses.push(selectedResponse);
+                setTimeout(() => {
+                    h1Element.classList.remove('fade-in');
+                }, 300);
+                showingOriginal = false;
+            }, 300);
+        } else {
+            h1Element.classList.add('fade-out');
+            h1Element.classList.remove('response');
+            setTimeout(() => {
+                h1Element.textContent = originalText;
+                h1Element.classList.remove('fade-out');
+                h1Element.classList.remove('response');
+                h1Element.classList.add('fade-in');
+                setTimeout(() => {
+                    h1Element.classList.remove('fade-in');
+                }, 300);
+                showingOriginal = true;
+            }, 300);
         }
-        let availableResponses = cannedResponses.filter(response => !usedResponses.includes(response));
-        const randomIndex = Math.floor(Math.random() * availableResponses.length);
-        const selectedResponse = availableResponses[randomIndex];
-        h1Element.textContent = selectedResponse; // Change the text
-        usedResponses.push(selectedResponse); // Mark as used
-      });
-      h1Element.addEventListener('mouseout', () => {
-        h1Element.textContent = "We are tired."; // Restore original text
-      });
-    </script>
-  </body>
+    }
+    setInterval(changeResponse, intervalTime);
+</script>
+</body>
+</html>
